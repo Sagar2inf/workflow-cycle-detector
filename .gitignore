@@ -1,0 +1,5 @@
+/workflow-frontend/node_modules
+/backend/main
+/backend/out
+/backend/database
+/backend/server
