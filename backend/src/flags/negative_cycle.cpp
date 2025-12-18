@@ -1,4 +1,4 @@
-#include "negative_cycle.hpp"
+#include "flags/negative_cycle.hpp"
 using namespace std;
 
 struct Edge {
@@ -6,11 +6,11 @@ struct Edge {
     long long w;
 };
 
-vector<string> detect_negative_cycle(Database& db){
-    map<string, set<pair<string, int>>> graph = db.Edges;
+vector<string> detect_negative_cycle(){
+    map<string, set<pair<string, int>>> graph = DB.Edges;
     map<string, int> ids;
     int k = 1;
-    for (auto& node : db.Nodes) {
+    for (auto& node : DB.Nodes) {
         ids[node] = k++;
     }
     int n = ids.size();

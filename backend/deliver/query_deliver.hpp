@@ -1,7 +1,7 @@
 #include "../include/database_instance.hpp"
 #include "../include/workflow/serializer.hpp"
-
+#include<iostream>
 using namespace std;
 
-string add_edge(string edge_data);
-string remove_edge(string edge_data);
+string get_children(string node);
+string get_parents(string node);

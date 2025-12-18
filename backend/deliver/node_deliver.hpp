@@ -1,4 +1,4 @@
-#include "../include/database.hpp"
+#include "../include/database_instance.hpp"
 #include "../include/workflow/serializer.hpp"
 using namespace std;
 

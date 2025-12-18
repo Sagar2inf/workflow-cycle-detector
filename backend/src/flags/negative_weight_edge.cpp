@@ -1,7 +1,7 @@
-#include "negative_weight_edge.hpp"
+#include "flags/negative_weight_edge.hpp"
 
-vector<pair<string, string>> negative_weighted_edge(Database& db){
-    map<string, set<pair<string, int>>> graph = db.Edges;
+vector<pair<string, string>> negative_weighted_edge(){
+    map<string, set<pair<string, int>>> graph = DB.Edges;
     vector<pair<string, string>> res;
     for(auto & it: graph){
         string u = it.first;

@@ -1,4 +1,4 @@
-#include "disconnected_flow.hpp";
+#include "flags/disconnected_flow.hpp"
 #include<bits/stdc++.h>
 #include<iostream>
 #include<algorithm>
@@ -19,8 +19,8 @@ void union_set(int a, int b){
         sz[a] += sz[b];
     }
 }
-bool checkflow_connectivity(Database& db){
-    map<string, set<pair<string, int>>> adj = db.Edges;
+bool checkflow_connectivity(){
+    map<string, set<pair<string, int>>> adj = DB.Edges;
     map<string, int> ind;
     int id = 1;
     for(auto & it: adj){
@@ -52,6 +52,5 @@ bool checkflow_connectivity(Database& db){
     }
     int number_of_components = st.size();
     return number_of_components;
-
 }
 

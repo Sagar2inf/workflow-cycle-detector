@@ -1,8 +1,8 @@
-#include "orphan_node.hpp"
+#include "flags/orphan_node.hpp"
 
-vector<string> orphan_nodes(Database& db){
-    set<string> nodes = db.Nodes;
-    map<string, set<pair<string, int>>> edges = db.Edges;
+vector<string> orphan_nodes(){
+    set<string> nodes = DB.Nodes;
+    map<string, set<pair<string, int>>> edges = DB.Edges;
     set<string> connected_nodes;
     for(auto & it: edges){
         connected_nodes.insert(it.first);

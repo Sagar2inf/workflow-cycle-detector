@@ -2,7 +2,7 @@
 
 using namespace std;
 
-string Database::addEdge(const string& from, const string& to, int weight){
+string Database::addEdge(string& from, string& to, int weight){
     if(Edges.find(from) != Edges.end()){
         set<pair<string, int>>& nodes = Edges[from];  
         vector<pair<string, int>> node_present;
@@ -20,3 +20,8 @@ string Database::addEdge(const string& from, const string& to, int weight){
     Nodes.insert(from); Nodes.insert(to);
     return "Edge added successfully";
 }
+
+/*
+If edge already exists, and user is adding the same edge with different weight then that edge will be overwrite
+and there is only one weight for one edge.
+*/

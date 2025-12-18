@@ -1,38 +1,24 @@
 #include "edge_deliver.hpp"
+#include<iostream>
 
 string add_edge(string edge_data){
-    string chk = "";
-    for(auto & it: edge_data){
-        if(it == ' '){
-            continue;
-        }
-        chk += it;
-    }
     pair<vector<pair<string, string>>, vector<int>> edges = edgeSerializer(edge_data);    
     vector<pair<string, string>> edge_list = edges.first;
     vector<int> weights = edges.second;
-    Database db;
-    string chk_data = "";
-    if(!weights.size()){
-        for(auto & it: edge_list){
-            chk_data += it.first + "->" + it.second + ",";
-        }
-    }else{
-        for(int i = 0; i < edge_list.size(); i++){
-            chk_data += edge_list[i].first + "-{" + to_string(weights[i]) + "}->" + edge_list[i].second + ",";
-        }
+    for(auto & it: edge_list){
+        cout << it.first << "->" << it.second << ", ";
     }
-    if(chk_data != chk){
-        return "Edge data malformed";
+    cout << endl;
+    for(auto & it: weights){
+        cout << it << " ";
     }
-    for(int i = 0; i < edge_list.size(); i++){
+    cout << endl;
+    int n = edge_list.size();
+    for(int i = 0; i < n; i++){
         string from = edge_list[i].first;
         string to = edge_list[i].second;
-        int weight = 0;
-        if(weights.size()){
-            weight = weights[i];
-        }
-        string res = db.addEdge(from, to, weight);
+        int weight = weights[i];
+        string res = DB.addEdge(from, to, weight);
     }
     return "Edges added successfully";
 }
@@ -40,17 +26,17 @@ string add_edge(string edge_data){
 string remove_edge(string edge_data){
     pair<vector<pair<string, string>>, vector<int>> edges = edgeSerializer(edge_data);    
     vector<pair<string, string>> edge_list = edges.first;
-    Database db;
-    set<pair<string, string>>& rel = db.Relationships;
+    set<pair<string, string>>& rel = DB.Relationships;
     for(auto & it: edge_list){
         if(rel.find(it) == rel.end()){
-            return "some Edge not found";
+            return "some edge not found";
         }
     }
-    for(int i = 0; i < edge_list.size(); i++){
+    int n = edge_list.size();
+    for(int i = 0; i < n; i++){
         string from = edge_list[i].first;
         string to = edge_list[i].second;
-        string res = db.deleteEdge(from, to);
+        string res = DB.deleteEdge(from, to);
     }
     
     return "Edges deleted successfully";

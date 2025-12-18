@@ -1,4 +1,6 @@
 #include "../database_instance.hpp"
+#include<iostream>
 
 using namespace std;
-vector<pair<string, string>> negative_weighted_edge();
+
+string min_flow();

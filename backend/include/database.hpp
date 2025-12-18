@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include <optional>
 #include <vector>
@@ -12,10 +13,10 @@ public:
     map<string, set<pair<string, int>>> Edges;
     set<pair<string, string>> Relationships;
 
-    string addNode(const string& node);
-    string addEdge(const string& from, const string& to, int weight);
-    string deleteNode(const string& node);
-    string deleteEdge(const string& from, string& to);
-    set<string> getChilds(const string& node);
-    set<string> getParents(const string& node);
+    string addNode(string& node);
+    string addEdge(string& from, string& to, int weight);
+    string deleteNode(string& node);
+    string deleteEdge(string& from, string& to);
+    set<string> getChildren(string& node);
+    set<string> getParents(string& node);
 };

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-string Database::deleteEdge(const string& from, string& to){
+string Database::deleteEdge(string& from, string& to){
     if(Edges.find(from) != Edges.end()){
         auto& nodes = Edges[from];
         pair<string, int> target;

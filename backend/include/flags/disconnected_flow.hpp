@@ -1,5 +1,5 @@
-#include "database.hpp"
+#include "../include/database_instance.hpp"
 
 using namespace std;
 
-bool checkflow_connectivity(Database& db);
+bool checkflow_connectivity();

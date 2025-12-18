@@ -1,5 +1,4 @@
-#include "database.hpp"
-
+#include "../database_instance.hpp"
 using namespace std;
 
-bool detect_cycle(Database& db);
+bool detect_cycle();

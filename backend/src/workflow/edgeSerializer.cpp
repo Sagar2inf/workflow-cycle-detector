@@ -1,5 +1,4 @@
-#include "serializer.hpp"
-#include "int_str.hpp"
+#include "workflow/serializer.hpp"
 #include<iostream>
 #include<algorithm>
 
@@ -7,72 +6,75 @@ using namespace std;
 
 /*
 1) unweighted directed graph:
-    {"A" -> "B", "B" -> "C", "C" -> "D"}
+    {"edge":"A -> B, B -> C, C -> D"}
 2) weighted edges:
     {"A" -{"w"}->"B", "B" -{"w"}->"C", "C" -{"w"}->"D"}
 */
 
 
 
-pair<vector<pair<string, string>>, vector<int>> edgeSerializer(string& data){
+pair<vector<pair<string, string>>, vector<int>> edgeSerializer(string data){
     while(true){
-        char c = data[0];
+        int f = 0;
+        if(data[0] == ':') f = 1;
         data.erase(data.begin());
-        if(c == ':') break;
+        if(f) break;
     }
+    data.erase(data.begin()); data.pop_back(); data.pop_back();
     vector<pair<string, string>> edges;
     string s = "";
     for(auto & it: data){
-        if(it == ' ' || it == '"') continue;
+        if(it == ' ') continue;
         s += it;
     }
-    s.erase(s.begin()); s.pop_back();
     bool isweighted = 0;
     if(s.find("{") != string::npos) isweighted = 1;
     if(s.find("}") != string::npos) isweighted = 1;
     vector<int> weight;
+    string ss = "";
     if(isweighted){
         string tmp = "";
-        int i = 0;
-        while(i < s.size()){
-            if(s[i] == '{'){
-                string w = "";
-                i += 1;
-                while(s[i] != '}' && i < s.size()){
-                    w += s[i];
-                    i++;
-                }
-                int wt = str_to_int(w);
+        int f = 0;
+        for(int i = 0; i < int(s.size()); i++){
+            if(s[i] == '{') f = 1;
+            else if(s[i] == '}'){
+                int wt = str_to_int(tmp);
                 weight.push_back(wt);
-                i += 1;
-            }else{
+                tmp = "";
+                f = 0;
+                continue;
+            }else if(f){
                 tmp += s[i];
-                i += 1;
             }
+            if(!f) ss += s[i];
         }
-        s = tmp;
+    }else{
+        ss = s;
     }
-    
-    vector<pair<string, string>> edges;
     string tmp = "";
     int i = 0;
-    while(i < s.size()){
-        string u = "", v = "";
-        if(i < s.size() - 1 && s[i] == '-' && s[i + 1] == '>'){
-            u = tmp;
-            i += 2;
-            while(s[i] != ',' && i < s.size()){
-                v += s[i];
-                i++;
+    while(i < ss.size()){
+        tmp += ss[i];
+        if(ss[i] == '>'){
+            if(isweighted){
+                tmp.pop_back(); tmp.pop_back(); tmp.pop_back();
+            }else{
+                tmp.pop_back(); tmp.pop_back();
             }
+            string u = tmp; tmp = "";
+            int j = i + 1;
+            while(j < ss.size() && ss[j] != ','){
+                tmp += ss[j]; j += 1;
+            }
+            string v = tmp;
             edges.push_back({u, v});
-            i += 1;
+            tmp = "";
+            i = j + 1;
         }else{
-            tmp += s[i];
             i += 1;
         }
     }
-    if(tmp.size()) edges.push_back({tmp, ""});
+    if(!isweighted) weight.assign(edges.size(), 0);
     pair<vector<pair<string, string>>, vector<int>> res;
     res.first = edges;
     res.second = weight;

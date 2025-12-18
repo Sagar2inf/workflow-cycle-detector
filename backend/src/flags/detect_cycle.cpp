@@ -1,4 +1,4 @@
-#include "detect_cycle.hpp"
+#include "flags/detect_cycle.hpp"
 
 vector<int> vis;
 bool dfs(vector<vector<int>>& adj, int s){
@@ -13,9 +13,9 @@ bool dfs(vector<vector<int>>& adj, int s){
     vis[s] = 2;
     return false;
 }
-bool detect_cycle(Database& db){
-    map<string, set<pair<string, int>>> graph = db.Edges;
-    set<string> nodes = db.Nodes;
+bool detect_cycle(){
+    map<string, set<pair<string, int>>> graph = DB.Edges;
+    set<string> nodes = DB.Nodes;
     map<string, int> ids;
     int k = 1;
     for(auto & it: nodes){

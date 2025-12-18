@@ -2,7 +2,7 @@
 
 using namespace std;
 
-set<string> Database::getParents(const string& node){
+set<string> Database::getParents(string& node){
     set<string> parents;
     for(auto & it: Relationships){
         if(it.second == node){
