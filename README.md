@@ -111,18 +111,6 @@ Output:
 - No negative cycle
 - Compilation order: D → A → B → C
 
----
 
-## Tech Stack
-- Language: C++ / Python (depending on implementation)
-- Core Concepts:
-  - Graph traversal
-  - Cycle detection
-  - Dependency analysis
-  - Shortest paths
-  - Topological ordering
 
----
 
-## Author
-Sagar Kumar
